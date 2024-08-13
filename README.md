@@ -1,11 +1,5 @@
 
-![Gnome-YT](https://user-images.githubusercontent.com/33667144/176252098-b38ed127-2c3e-41c4-9f4f-d3187da37368.jpg)
-
 This is a tradingview webhook  designed to be free & open source.  This bot is written using Python & Flask and is designed to run a free heroku server. It will allow you to create custom alerts in tradingview and send them to your own private webhook server that can place trades on your account via the api.
-
-#### Support can be requested in our Discord:
-
-https://discord.gg/Qb9unmxD6D
 
 #### Current Exchanges 
 - [Bybit](https://partner.bybit.com/b/webhookbot)
@@ -33,39 +27,31 @@ https://youtu.be/VX68RrMvM5Q
 <br>
 <br>
 
-# How to Webhook Server on Heroku
+# How to Webhook Server on Render
 
-1.) Clone Project to Desktop
+1) Clone Project to Desktop
 
-2.) [Create a Heroku Account](https://www.heroku.com/)
+2) [Create a Render Account](https://render.com/?trk=article-ssr-frontend-pulse_little-text-block)
 
-*Heroku was free, now costs only $7 but is worth it... you are investing you money here and you want to do it right.*
-
-3.) Edit config.json to add your own api keys & add a custom key to protect the server.
+3) Edit config.json to add your own api keys & add a custom key to protect the server.
 
 ```You need to create new keys on Bybit & give them the correct acess to trade and see token balance```
 	
-4.) Open a terminal in the cloned directory:
-
-5.) Install Heroku CLI so you can work connect you your webserver.
-
-https://cli-assets.heroku.com/heroku-x64.exe
+4) Open a terminal in the cloned directory:
 
 
-6.) Submit the following lines into the terminal and press ENTER after each one to procces the code: 
+6) Submit the following lines into the terminal and press ENTER after each one to procces the code: 
  
  
 ``git init``
 
-``heroku login``
-
-``heroku create --region eu tv-trader-yourservernamehere``
+`` login``
 
 ``git add .``
 
 ``git commit -m "Initial Commit"``
 
-``git push heroku master``
+``git push main``
 
 
 ***Anytime you need to make a change to the code or the API keys, you can push a new build to Heroku:***
