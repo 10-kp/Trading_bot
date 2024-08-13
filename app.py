@@ -190,12 +190,15 @@ def webhook():
             "status": "success",
             "message": "Bybit Webhook Received!"
         }
+    
+
     ##############################################################################
-    #             Binance Futures
+    #             Binance Futures#
+
     
         if data['exchange'] == 'binance-futures':
             if use_binance_futures:
-                bot = Bot()
+                bot  = Bot() #creates an instance of a Bot
                 bot.run(data)
                 return {
                     "status": "success",
