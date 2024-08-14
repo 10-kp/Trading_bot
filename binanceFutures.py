@@ -194,10 +194,10 @@ class Bot:
                 else:
                     price = 0 # Default price to 0 if not provided.
 
-                if data['order_mode'] == 'Both':
-                    take_profit_percent = float(data['take_profit_percent']) / 100
-                    stop_loss_percent = float(data['stop_loss_percent']) / 100
-                    current_price = exchange.fetch_ticker(data['symbol'])['last']
+                if data['order_mode'] == 'Both': # If both stop loss and take profit are to be set.
+                    take_profit_percent = float(data['take_profit_percent']) / 100 # Calculate take profit percent
+                    stop_loss_percent = float(data['stop_loss_percent']) / 100 # Calculate take stop loss percent
+                    current_price = exchange.fetch_ticker(data['symbol'])['last']# Fetch current market price.
                     if data['side'] == 'Buy':
                         take_profit_price = round(float(current_price) + (float(current_price) * take_profit_percent),
                                                   2)
@@ -207,27 +207,27 @@ class Bot:
                                                   2)
                         stop_loss_price = round(float(current_price) + (float(current_price) * stop_loss_percent), 2)
 
-                    print("Take Profit Price: " + str(take_profit_price))
-                    print("Stop Loss Price: " + str(stop_loss_price))
+                    print("Take Profit Price: " + str(take_profit_price))# Printing take profit price.
+                    print("Stop Loss Price: " + str(stop_loss_price))# Printing stop loss price.
 
-                    self.create_string()
+                    self.create_string()# Creating a unique client order ID.
                     params = {
                         "newClientOrderId": self.clientId,
-                        'reduceOnly': False
+                        'reduceOnly': False# Setting 'reduceOnly' to False for a new position.
                     }
                     if data['type'] == 'Limit':
                         exchange.create_order(data['symbol'], data['type'], data['side'], float(data['qty']),
-                                              price=float(price), params=params)
+                                              price=float(price), params=params)# Placing a limit order.
                     else:
                         exchange.create_order(data['symbol'], data['type'], data['side'], float(data['qty']),
-                                              params=params)
+                                              params=params)# Placing a market order.
 
-                    self.set_risk(data['symbol'], data, stop_loss_price, take_profit_price)
+                    self.set_risk(data['symbol'], data, stop_loss_price, take_profit_price)# Setting risk parameters.
 
 
-                elif data['order_mode'] == 'Profit':
-                    take_profit_percent = float(data['take_profit_percent']) / 100
-                    current_price = exchange.fetch_ticker(data['symbol'])['last']
+                elif data['order_mode'] == 'Profit':# If only take profit is to be set.
+                    take_profit_percent = float(data['take_profit_percent']) / 100# Calculate take profit percent.
+                    current_price = exchange.fetch_ticker(data['symbol'])['last']# Fetch current market price.
 
                     if data['side'] == 'Buy':
                         take_profit_price = round(float(current_price) + (float(current_price) * take_profit_percent),
@@ -236,51 +236,51 @@ class Bot:
                         take_profit_price = round(float(current_price) - (float(current_price) * take_profit_percent),
                                                   2)
 
-                    print("Take Profit Price: " + str(take_profit_price))
+                    print("Take Profit Price: " + str(take_profit_price))# Printing take profit price.
 
-                    self.create_string()
+                    self.create_string()# Creating a unique client order ID.
                     params = {
                         "newClientOrderId": self.clientId,
-                        'reduceOnly': False
+                        'reduceOnly': False# Setting 'reduceOnly' to False for a new position.
                     }
 
                     if data['type'] == 'Limit':
                         exchange.create_order(data['symbol'], data['type'], data['side'], float(data['qty']),
-                                              price=float(price), params=params)
+                                              price=float(price), params=params) # Placing a limit order.
                     else:
                         exchange.create_order(data['symbol'], data['type'], data['side'], float(data['qty']),
-                                              params=params)
+                                              params=params)# Placing a market order.
 
-                    self.set_risk(data['symbol'], data, 0, take_profit_price)
+                    self.set_risk(data['symbol'], data, 0, take_profit_price) # Setting take profit only.
 
 
-                elif data['order_mode'] == 'Stop':
-                    stop_loss_percent = float(data['stop_loss_percent']) / 100
-                    current_price = exchange.fetch_ticker(data['symbol'])['last']
+                elif data['order_mode'] == 'Stop':# If only stop loss is to be set.
+                    stop_loss_percent = float(data['stop_loss_percent']) / 100 # Calculate stop loss percent.
+                    current_price = exchange.fetch_ticker(data['symbol'])['last'] # Fetch current market price.
 
                     if data['side'] == 'Buy':
                         stop_loss_price = round(float(current_price) - (float(current_price) * stop_loss_percent), 2)
                     elif data['side'] == 'Sell':
                         stop_loss_price = round(float(current_price) + (float(current_price) * stop_loss_percent), 2)
 
-                    print("Stop Loss Price: " + str(stop_loss_price))
+                    print("Stop Loss Price: " + str(stop_loss_price))# Printing stop loss price.
 
-                    self.create_string()
+                    self.create_string() # Creating a unique client order ID.
                     params = {
                         "newClientOrderId": self.clientId,
-                        'reduceOnly': False
+                        'reduceOnly': False  # Setting 'reduceOnly' to False for a new position
                     }
 
                     if data['type'] == 'Limit':
                         exchange.create_order(data['symbol'], data['type'], data['side'], float(data['qty']),
-                                              price=float(price), params=params)
+                                              price=float(price), params=params) # Placing a limit order.
                     else:
                         exchange.create_order(data['symbol'], data['type'], data['side'], float(data['qty']),
-                                              params=params)
+                                              params=params) # Placing a market order.
 
-                    self.set_risk(data['symbol'], data, stop_loss_price, 0)
+                    self.set_risk(data['symbol'], data, stop_loss_price, 0) # Setting stop loss only.
 
                 else:
                     return {
-                        'status': 'error'
+                        'status': 'error'# Returning an error status if the order mode is not recognized.
                     }
