@@ -16,16 +16,6 @@ This is a tradingview webhook  designed to be free & open source.  This bot is w
 
 [Create Binance Futures Account](https://www.binance.com/en/register?ref=LMFD8MJ5)
 
-<br>
-<br>
-
-
-#### Video Tutorial:
-https://youtu.be/VX68RrMvM5Q
-
-
-<br>
-<br>
 
 # How to Webhook Server on Render
 
